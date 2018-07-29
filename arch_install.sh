@@ -366,7 +366,7 @@ install_packages() {
 install_aur_helper() {
     git clone https://aur.archlinux.org/aurman.git
 	pushd aurman
-	makepkg -si
+	makepkg -si --noconfirm --asroot
 	popd
 }
 
