@@ -145,8 +145,8 @@ configure() {
     echo 'Installing additional packages'
     install_packages
 
-    echo 'Installing packer'
-    install_packer
+    echo 'Installing AUR helper'
+    install_aur_helper
 
     echo 'Installing AUR packages'
     install_aur_packages
@@ -302,7 +302,7 @@ install_packages() {
     local packages=''
 
     # General utilities/libraries
-    packages+=' gparted chromium mlocate p7zip pkgfile powertop rfkill sudo unrar unzip zip systemd-sysvcompat zsh grml-zsh-config'
+    packages+=' gparted mlocate p7zip pkgfile powertop rfkill sudo unrar unzip zip systemd-sysvcompat zsh grml-zsh-config'
 
 	# Network management & tools
 	packages+=' net-tools openssh rsync wget tcpdump wireshark-gtk ntp traceroute'
@@ -363,27 +363,17 @@ install_packages() {
     pacman -Sy --noconfirm $packages
 }
 
-install_packer() {
-    mkdir /foo
-    cd /foo
-    curl https://aur.archlinux.org/packages/pa/packer/packer.tar.gz | tar xzf -
-    cd packer
-    makepkg -si --noconfirm --asroot
-
-    cd /
-    rm -rf /foo
+install_aur_helper() {
+    git clone https://aur.archlinux.org/aurman.git
+	pushd aurman
+	makepkg -si
+	popd
 }
 
 install_aur_packages() {
-    mkdir /foo
-    export TMPDIR=/foo
-    packer -S --noconfirm android-udev
-    packer -S --noconfirm chromium-pepper-flash-stable
-    packer -S --noconfirm chromium-libpdf-stable
-	packer -S --noconfirm gotags-git
-	packer -S --noconfirm scalafmt
-    unset TMPDIR
-    rm -rf /foo
+	aurman -S --noconfirm gotags-git
+	aurman -S --noconfirm scalafmt
+	aurman -S --noconfirm google-chrome
 }
 
 clean_packages() {
