@@ -31,8 +31,6 @@
 #    setup_lvm - Customize for partitions inside LVM
 #    install_packages - Customize packages installed in base system
 #                       (desktop environment, etc.)
-#    install_aur_packages - More packages after packer (AUR helper) is
-#                           installed
 #    set_netcfg - Preload netcfg profiles
 
 ## CONFIGURE THESE VARIABLES
@@ -144,12 +142,6 @@ configure() {
 
     echo 'Installing additional packages'
     install_packages
-
-    echo 'Installing AUR helper'
-    install_aur_helper
-
-    echo 'Installing AUR packages'
-    install_aur_packages
 
     echo 'Clearing package tarballs'
     clean_packages
@@ -361,19 +353,6 @@ install_packages() {
     fi
 
     pacman -Sy --noconfirm $packages
-}
-
-install_aur_helper() {
-    git clone https://aur.archlinux.org/aurman.git
-	pushd aurman
-	makepkg -si --noconfirm --asroot
-	popd
-}
-
-install_aur_packages() {
-	aurman -S --noconfirm gotags-git
-	aurman -S --noconfirm scalafmt
-	aurman -S --noconfirm google-chrome
 }
 
 clean_packages() {
