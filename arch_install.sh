@@ -302,28 +302,34 @@ install_packages() {
     local packages=''
 
     # General utilities/libraries
-    packages+=' alsa-utils aspell-en chromium neovim mlocate net-tools ntp openssh p7zip pkgfile powertop python python2 rfkill rsync sudo unrar unzip wget zip systemd-sysvcompat zsh grml-zsh-config'
+    packages+=' gparted chromium mlocate p7zip pkgfile powertop rfkill sudo unrar unzip zip systemd-sysvcompat zsh grml-zsh-config'
 
-    # Development packages
-    packages+=' apache-ant cmake gdb git maven mercurial subversion tcpdump valgrind wireshark-gtk astyle the_silver_searcher ctags'
-
+	# Network management & tools
+	packages+=' net-tools openssh rsync wget tcpdump wireshark-gtk ntp traceroute'
+	
+    # Development tools
+    packages+=' apache-ant cmake gdb git maven sbt mercurial subversion valgrind the_silver_searcher ctags astyle'
+	
+	# Development frameworks
+	packages+=' jdk8-openjdk python python2 scala go'
+	
     # Netcfg
     if [ -n "$WIRELESS_DEVICE" ]
     then
         packages+=' netcfg ifplugd dialog wireless_tools wpa_actiond wpa_supplicant'
     fi
 
-    # Java stuff
-    packages+=' jdk8-openjdk'
+    # Editors
+    packages+=' intellij-idea-community-edition neovim libreoffice-fresh aspell-en hunspell-en hunspell-es_mx hyphen-en hyphen-es mythes-en mythes-es'
 
-    # Libreoffice
-    packages+=' libreoffice-fresh hunspell-en hunspell-es hyphen-en mythes-en'
-
+	# Media
+	packages+=' mplayer pidgin vlc alsa-utils'
+	
     # Misc programs
-    packages+=' mplayer pidgin vlc xscreensaver gparted dosfstools ntfsprogs htop traceroute'
+    packages+=' xscreensaver dosfstools ntfsprogs htop '
 
-    # Xserver
-    packages+=' xorg-apps xorg-server xorg-xinit xterm'
+    # Graphical interface
+    packages+=' xfce4 xfce4-goodies xorg-apps xorg-server xorg-xinit xterm'
 
     # Slim login manager
     packages+=' slim archlinux-themes-slim'
